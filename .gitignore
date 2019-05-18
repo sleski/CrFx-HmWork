@@ -21,3 +21,30 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+
+target
+build
+.gradle
+.classpath
+.project
+.settings
+.env
+.g8
+/.target
+/bin
+/logs/**
+/conf/application.user.*.conf
+
+.DS_Store
+.sass-cache
+**\.DS_Store
+.idea
+.idea_modules
+*.iml
+*.log
+/logs/
+.cache-main
+.cache-tests
+.sonar/*
+.sbtserver.lock
