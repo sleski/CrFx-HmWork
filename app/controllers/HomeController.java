@@ -2,9 +2,11 @@ package controllers;
 
 import clients.CrFxClient;
 import com.fasterxml.jackson.databind.JsonNode;
+import org.apache.commons.lang3.StringUtils;
 import play.Logger;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import play.twirl.api.Html;
 
@@ -34,16 +36,19 @@ public class HomeController extends Controller {
 	 * this method will be called when the application receives a
 	 * <code>GET</code> request with a path of <code>/</code>.
 	 */
-	public Result index() {
-		LOG.info("Check car history for this vin = {}", EXAMPLE_VIN_1);
-		try {
-			JsonNode toDisplay = crFxClient.getDataForGivenVin(EXAMPLE_VIN_1);
-			Html chartData = new Html(toDisplay.toString());
-			return ok(views.html.index.render(chartData));
-		} catch (ExecutionException | InterruptedException e) {
-			LOG.error("Problem occured during calling crFxClient for vin = {}", EXAMPLE_VIN_1, e);
+	public Result index(Http.Request request) {
+		String vin = request.getQueryString("VIN");
+		LOG.info("Check data for vin = {}", vin);
+		if (StringUtils.isNotBlank(vin)) {
+			try {
+				JsonNode toDisplay = crFxClient.getDataForGivenVin(vin);
+				Html chartData = new Html(toDisplay.toString());
+				return ok(views.html.index.render(chartData, vin));
+			} catch (ExecutionException | InterruptedException e) {
+				LOG.error("Problem occured during calling crFxClient for vin = {}", vin, e);
+			}
 		}
-		return ok(views.html.index.render(new Html(Json.newObject().toString())));
+		return ok(views.html.index.render(new Html(Json.newObject().toString()), ""));
 	}
 
 }
