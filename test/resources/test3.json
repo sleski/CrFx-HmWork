@@ -1,0 +1,15 @@
+{
+  "records" : [ {
+	"vin" : "WVWZZZ1HZSP509082",
+	"date" : "2017-01-02",
+	"data_provider_id" : 10,
+	"odometer_reading" : 12200,
+	"service_details" : [ "Oil changed", "Tires rotated" ]
+  }, {
+	"vin" : "WVWZZZ1HZSP509082",
+	"date" : "2017-01-02",
+	"data_provider_id" : 10,
+	"odometer_reading" : 12100,
+	"service_details" : [ "Tires replaced" ]
+  } ]
+}

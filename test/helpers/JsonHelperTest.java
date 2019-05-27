@@ -38,6 +38,13 @@ public class JsonHelperTest {
 	}
 
 	@Test
+	public void shouldNotAddAnyInformationIfTwoServicesWasOnSameDay() throws Exception {
+		JsonNode inputWithoutOdometerRollback = loadJSONResource("test3.json");
+		JsonNode output = jsonHelper.verifyAndMarkRollback(inputWithoutOdometerRollback);
+		assertThat(inputWithoutOdometerRollback, is(output));
+	}
+
+	@Test
 	public void shouldNotAddAnyInformationWhenOdometerRollbackWasNotFound() throws Exception {
 		JsonNode inputWithoutOdometerRollback = loadJSONResource("sampleInputWithoutOdometerRollback.json");
 		JsonNode verified = jsonHelper.verifyAndMarkRollback(inputWithoutOdometerRollback);

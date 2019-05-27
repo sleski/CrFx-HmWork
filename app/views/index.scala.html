@@ -1,15 +1,18 @@
 @(chartData: Html, vin: String)
 
 <div id="add-post-button">
-  <p>Type VIN here, as a sample you can try this: VSSZZZ6JZ9R056308</p>
-  <form>
-    <input name="VIN" size="17" type="text" placeholder="type VIN here" value="@vin"/>
-    <button type="submit">Check history by VIN</button>&nbsp;
-  </form>
+	<p>Type VIN here, as a sample you can try this: VSSZZZ6JZ9R056308, Wvwzzz1hzsp509082</p>
+	<form>
+		<input name="VIN" size="17" type="text" placeholder="type VIN here" value="@vin"/>
+		<button type="submit">Check history by VIN</button>
+			&nbsp;
+	</form>
 </div>
 
 <div>
-@main("Page to verify VIN") {
-  @chartData
-}
+	<pre>
+	@main("Page to verify VIN") {
+		@chartData
+	}
+	</pre>
 </div>

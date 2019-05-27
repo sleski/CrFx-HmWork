@@ -21,7 +21,8 @@ public class HomeController extends Controller {
 
 	private static final Logger.ALogger LOG = Logger.of(HomeController.class);
 
-	private static final String EXAMPLE_VIN_1 = "VSSZZZ6JZ9R056308";
+	//private static final String EXAMPLE_VIN_1 = "VSSZZZ6JZ9R056308";
+	// Wvwzzz1hzsp509082
 
 	private CrFxClient crFxClient;
 
@@ -41,8 +42,8 @@ public class HomeController extends Controller {
 		LOG.info("Check data for vin = {}", vin);
 		if (StringUtils.isNotBlank(vin)) {
 			try {
-				JsonNode toDisplay = crFxClient.getDataForGivenVin(vin);
-				Html chartData = new Html(toDisplay.toString());
+				JsonNode toDisplay = crFxClient.getDataForGivenVin(vin.toUpperCase());
+				Html chartData = new Html(Json.prettyPrint(toDisplay));
 				return ok(views.html.index.render(chartData, vin));
 			} catch (ExecutionException | InterruptedException e) {
 				LOG.error("Problem occured during calling crFxClient for vin = {}", vin, e);
