@@ -32,16 +32,7 @@ public class HomeController extends Controller {
 	}
 
 	public Result checkVin(String vin) {
-		if (StringUtils.isNotBlank(vin)) {
-			try {
-				JsonNode toDisplay = crFxClient.getDataForGivenVin(vin.toUpperCase());
-				Html chartData = new Html(Json.prettyPrint(toDisplay));
-				return ok(views.html.index.render(chartData, vin));
-			} catch (ExecutionException | InterruptedException e) {
-				LOG.error("Problem occured during calling crFxClient for vin = {}", vin, e);
-			}
-		}
-		return ok(views.html.index.render(new Html(Json.newObject().toString()), ""));
+		return verifyVin(vin);
 	}
 
 	/**
@@ -53,6 +44,11 @@ public class HomeController extends Controller {
 	public Result index(Http.Request request) {
 		String vin = request.getQueryString("VIN");
 		LOG.info("Check data for vin = {}", vin);
+
+		return verifyVin(vin);
+	}
+
+	private Result verifyVin(String vin){
 		if (StringUtils.isNotBlank(vin)) {
 			try {
 				JsonNode toDisplay = crFxClient.getDataForGivenVin(vin.toUpperCase());
