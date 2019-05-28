@@ -31,6 +31,19 @@ public class HomeController extends Controller {
 		this.crFxClient = crFxClient;
 	}
 
+	public Result checkVin(String vin) {
+		if (StringUtils.isNotBlank(vin)) {
+			try {
+				JsonNode toDisplay = crFxClient.getDataForGivenVin(vin.toUpperCase());
+				Html chartData = new Html(Json.prettyPrint(toDisplay));
+				return ok(views.html.index.render(chartData, vin));
+			} catch (ExecutionException | InterruptedException e) {
+				LOG.error("Problem occured during calling crFxClient for vin = {}", vin, e);
+			}
+		}
+		return ok(views.html.index.render(new Html(Json.newObject().toString()), ""));
+	}
+
 	/**
 	 * An action that renders an HTML page with a welcome message.
 	 * The configuration in the <code>routes</code> file means that
